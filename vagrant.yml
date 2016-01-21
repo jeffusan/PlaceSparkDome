@@ -9,4 +9,5 @@
     - { role: java, sudo: yes }
     - { role: python, sudo: yes }
     - { role: scala, sudo: yes }
+    - { role: spark, sudo: yes }
     - { role: sbt, sudo: yes }
