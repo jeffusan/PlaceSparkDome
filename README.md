@@ -50,10 +50,16 @@ Submitting a python job which references the Scala class will work as follows:
 2- Instead of step 5, do the following:
 
 ```
-/opt/spark$>./bin/spark-submit --jars helloworld_2.10-1.0.jar hello_scala_spark.py
+/opt/spark$>./bin/spark-submit --jars /vagrant/apps/target/scala-2.10/helloworld_2.10-1.0.jar /vagrant/apps/hello_scala_spark.py
 ```
 
-Notice the HelloWorld class is loaded differently within the Spark application.
+You should see in the log output something like this:
+
+```
+hello_scala_spark.py with timestamp XXXXXXXXX
+```
+
+*Note* the HelloWorld class is loaded differently within the Spark application.
 
 ```
 import pyspark
