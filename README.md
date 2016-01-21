@@ -6,7 +6,11 @@ It also includes a simple application to demonstrate connecting to a Scala class
 
 ## Quick Start
 
-1- Clone the source
+1- Clone the source *be sure to include submodules!*
+
+```
+$> git clone --recursive https://github.com/jeffusan/PlaceSparkDome.git
+```
 
 2- Create the VM: ```vagrant up```
 
