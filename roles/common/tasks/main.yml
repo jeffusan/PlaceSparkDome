@@ -1,0 +1,52 @@
+---
+- name: install some tools for convenience
+  apt: name={{ item }} update_cache={{ update_apt_cache }} state=present
+  with_items:
+    - sudo
+    - bash
+    - git
+    - tmux
+    - htop
+    - nmon
+    - build-essential
+    - python-pycurl
+  tags:
+    - install
+
+- name: populate /etc/hosts
+  template: src=etc/hosts.j2 dest=/etc/hosts
+  tags:
+    - configure
+
+- name: download tmux.conf
+  get_url: url=https://raw.githubusercontent.com/irifed/dotfiles-pub/master/.tmux.conf dest={{ goodies_home }}/.tmux.conf
+
+- name: download screenrc
+  get_url: url=https://raw.githubusercontent.com/irifed/dotfiles-pub/master/.screenrc dest={{ goodies_home }}/.screenrc
+
+- name: install a better editor
+  apt: name=emacs23-nox state=present
+
+- name: install emacs config
+  git: repo=https://github.com/jeffusan/evil-twin.git dest={{ goodies_home }}/.emacs
+
+- name: create SSH keys for vagrant user
+  user: name=vagrant generate_ssh_key=yes ssh_key_bits=2048
+  tags:
+    - configure
+    - ssh
+
+- name: prepare for passwordless ssh
+  shell: /bin/cat /home/vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
+  tags:
+    - configure
+    - ssh
+
+- name: ensure proper permissions on SSH keys
+  file: path=/home/vagrant/.ssh/{{ item }} mode=0600
+  with_items:
+    - id_rsa
+    - id_rsa.pub
+    - authorized_keys
+  tags:
+    - ssh

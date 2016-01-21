@@ -1,0 +1,16 @@
+---
+
+- name: Install base Python packages
+  apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
+  with_items:
+    - python-pip
+  tags: install
+
+- name: Install virtualenv
+  pip: name=virtualenv
+  tags: install
+
+- name: Create the virtualenv
+  command: virtualenv {{ virtualenv_path }} --no-site-packages
+           creates={{ virtualenv_path }}/bin/activate
+  tags: configure

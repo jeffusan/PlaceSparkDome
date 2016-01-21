@@ -1,0 +1,23 @@
+---
+
+update_apt_cache: yes
+iface: eth1
+virtualenv_path: "/apps/place_sparkdome/venv"
+goodies_home: /home/vagrant
+
+spark_version: "1.6.0-bin-hadoop2.6"
+spark_download_url: "http://ftp.meisei-u.ac.jp/mirror/apache/dist/spark/spark-1.6.0/spark-{{ spark_version }}.tgz"
+
+
+spark_root: "/opt/spark"
+spark_master_host: "localhost"
+spark_master_port: 7077
+
+# memory per executor, increase if see java out-of-memory exceptions in spark shell
+# spark_executor_memory: "{{ (ansible_memtotal_mb * 0.6)|round|int }}m"
+spark_executor_memory: 2gb
+
+# total memory for use by all apps
+# make sure to leave at least 1gb for the system on slaves
+# TODO set this value depending on total cluster memory
+spark_worker_memory: 512mb

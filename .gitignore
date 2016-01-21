@@ -1,0 +1,5 @@
+apps/target/*
+.vagrant/*
+ansible.log
+apps/project/project/*
+apps/project/target/*
